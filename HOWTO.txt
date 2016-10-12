@@ -50,5 +50,102 @@ Author: Selena Small, 2016
 
 	});
 
+8. Create a simply layout for the structure of your #todo list using html and css, here is a very simplified example with little styling. In the index.html between the <body></body> tags create a structure with clear targets
+	<div class="task-list">
+	  <h3>New Task</h3>
+	  <form id="todo-form">
+	    <input type="text" placeholder="Title" />
+	    <textarea placeholder="Descrtipion"></textarea>
+	    <input type="text" placeholder="Created (dd/mm/yyyy)" />
+	    <input type="text" placeholder="Due (dd/mm/yyyy)" />
+	    <button class="task-create">Create Task</button>
+	  </form>
+
+	</div>
 
 
+	<div class="task-list" id="pending">
+	  <h3>Active</h3>
+	  <!-- Sample task added manually to check look -->
+	  <div class="todo-task">
+	    <div class="task-header">Sample Header</div>
+	    <div class="task-date">25/06/1992</div>
+	    <div class="task-description">Lorem Ipsum Dolor Sit Amet</div>
+	    <button class="task-complete">Complete</button>
+	    <button class="task-delete">Delete</button>
+	  </div>
+	</div>
+
+	<div class="task-list" id="completed">
+	  <h3>Complete</h3>
+	</div>
+
+9. And in the style.css at the very least set some styling to make your structure easy to see:
+	.task-list {
+		padding: 10px;
+	  	width: 25%;
+	  	margin: 10px;
+	  	background-color: lightgrey;
+	  	min-height: 240px;
+	}
+
+	.task-list input, .task-list textarea {
+  		width: 100%;
+	}
+
+	.task-list input {
+  		height: 30px;
+	}
+
+	.todo-task {
+		background-color: #fff;
+		width: 100%;
+	}
+
+	.task-list input[type="button"] {
+  		width: 100px;
+	}
+
+10. Now we're ready to start with some jQuery magic. In a #todo list, there are essentially 3 simply tasks that need to occur which are Create, Complete and Delete. We'll begin with the delete task, since we have a hard coded sample task and this will be the easiest task to complete. In the script.js we can add ot the document ready a simple delete task which will remove the sample task from view - Becasue that task is hard coded, it will re-appear when the page is reloaded but we will at least have the basis of this functionality.
+    // Delete task
+    $('button.task-delete').click(function() {
+        $(this).parent().fadeOut('fast');
+    });
+
+11. Next, the 'Complete' button needs to move the entire #todo item to the Complete section and the 'Complete' button needs ot disappear as this action will no longer work. First we can start with baby steps and when the tasks is complete, both the task and it's 'complete' button will change colour with the following jQuery & css
+   	// Complete task
+    $('button.task-complete').click(function() {
+        $(this).parent().addClass('complete');
+        $(this).addClass('complete');
+    });
+
+    .complete {
+		background-color: red; 
+	}
+
+11a	Now that we have clearly identified which elements will be moved and that it works, we can simply create a variable and add the following lines to the complete function to ensure the div moves the 'Complete' section:
+	var complete = $(this).parent();
+    $(this).parent().parent().next().append(complete);
+
+11b	And lastly, once the tasks is appropriately moved the 'Completed' section, we can modify the complete button with the following code:
+	$(this).html("uncomplete");
+
+
+11c	We now need to create a new function that will handle the click from the new "uncomplete" button.
+
+//////////////////////////////////////////////
+
+
+
+
+
+//////////////////////////////////////////////
+
+12. Now we can work the 'Create' new tasks function. First to ensure task will be created in the corretc place, we need to work out the order of elements as jQuery will ready. Add the following code to your script.js inside the document.ready block. This will append the new task to your 'Active' section:
+    // Create new task
+    $('button.task-create').click(function() {
+        $('div.task-list#active').append('<div class="todo-task"></div>');
+        return false;
+    });
+
+13. We will want to check and ensure there is content to be loaded before creating the task so as not to create a series of void divs.
