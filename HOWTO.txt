@@ -1,24 +1,40 @@
-Get started with JS
+Get started with jQuery and learn how to add basic animations to your web applications. jQuery is a small, fast Javascript library which can be used for HTML document manipulation, event handling, animation, and Ajax requests. It's basically a shorthand version of Javascript which many purists are against but a majority of noobs are encouraged to learn first due to it's simplicity.
+
+You can download jQuery or simply reference it in your application http://jquery.com/download/ - either way, the api documentation will come in handy to see what functions are available within the library and how they can be implemented http://api.jquery.com
+
 This tutorial was written using Mac OS and Sublime Text 3 as the text editor. It assumes you have configured your local server to read project directories in either /Sites or another location on your machine and that you have a sound understanding on html and css concepts.
 
+A repo for the full code of this example is available at https://github.com/SelenaSmall/query-todo
+Author: Selena Small, 2016
+
+------------------------------------------------------------------------------------------------------
 1. Create a project root folder, the the purpose of this exercise I will name this folder “javascript”
 
 2. Create 3 files in your project root: index.html		script.js		style.css
 	*file structure pic
 
-3. If you want to store your project on github or another git service (which is recommended to keep track of your projects), set that up now.
+3. If you want to store your project on github or another git service (which is recommended to keep track of your projects), set that up now. You can follow the instructions below or go to https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
+	In your git account, create a new remote repository for your project and use the command line to initialise your local repository before pushing it up.
+		$ cd Sites/javascript/
+		$ git init
+		$ git status
+		$ git add .
+		$ git commit -m 'initial commit'
+		$ git remote add origin (repository origin)
+		$ git remote -v
+		$ git push -u origin master
 
 4. Inside the index.html set up your structure with links to the other files
 	<!DOCTYPE html> 
 	<html> 
 		 <head> 
-			 <title>Learning Javascript</title> 
-			 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+			 <title>Learning jQuery</title> 			 
 			 <link rel='stylesheet' type='text/css' href='style.css'/> 
+			 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 			 <script type='text/javascript' src='script.js'></script> 
 		 </head> 
 		 <body> 
-			 <h1>Learning Javascript</h1> 
+			 <h1>Learning jQuery</h1> 
 		 </body> 
 	</html>
 
@@ -33,4 +49,6 @@ This tutorial was written using Mac OS and Sublime Text 3 as the text editor. It
 	$(document).ready(function() {
 
 	});
+
+
 
