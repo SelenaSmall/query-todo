@@ -1,0 +1,36 @@
+Get started with JS
+This tutorial was written using Mac OS and Sublime Text 3 as the text editor. It assumes you have configured your local server to read project directories in either /Sites or another location on your machine and that you have a sound understanding on html and css concepts.
+
+1. Create a project root folder, the the purpose of this exercise I will name this folder “javascript”
+
+2. Create 3 files in your project root: index.html		script.js		style.css
+	*file structure pic
+
+3. If you want to store your project on github or another git service (which is recommended to keep track of your projects), set that up now.
+
+4. Inside the index.html set up your structure with links to the other files
+	<!DOCTYPE html> 
+	<html> 
+		 <head> 
+			 <title>Learning Javascript</title> 
+			 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+			 <link rel='stylesheet' type='text/css' href='style.css'/> 
+			 <script type='text/javascript' src='script.js'></script> 
+		 </head> 
+		 <body> 
+			 <h1>Learning Javascript</h1> 
+		 </body> 
+	</html>
+
+5. You can test this out by opening a web browser and navigating to your localhost, in this case http://localhost/javascript/ - On the screen you should see the heading output that was specified in the index.html file “Learning jQuery"
+
+6. In the style.css you can add styling to your elements as usual, lets change the styling on the <h2> tag and make it red
+	h2 {
+		color: red; 
+	}
+
+7. In the script.js you can now get your document ready to perform some jQuery tasks by declaring the document.ready function:
+	$(document).ready(function() {
+
+	});
+
