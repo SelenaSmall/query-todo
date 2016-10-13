@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  // Select date using jQuery date-picker
+ // Select date using jQuery date-picker
   $('input#datepicker').mouseover('focus', function() { 
     $(this).datepicker({
       changeMonth: true,  // Allowing user to select month
@@ -35,12 +35,13 @@ $(document).ready(function() {
           // Create new #todo section
           $('div.task-list#active').append('<div class="todo-task"></div>');
           // Append new values to the section
-          $('div.todo-task:last-child').append(taskTitle).addClass('task-header');
-          $('div.todo-task:last-child').append(taskDesc).addClass('task-description');
-          $('div.todo-task:last-child').append(taskDate).addClass('task-due');       
-          // Create 'complete' and 'delete' buttons for the new section
-          $('div.todo-task:last-child').append('<button class="task-complete">Complete</button>');
-          $('div.todo-task:last-child').append('<button class="task-delete">Delete</button>');
+          $('div.todo-task:last-child').append(
+                "<div class='task-header'>" + taskTitle + "</div>" +
+                "<div class='task-description'>" + taskDesc + "</div>" +
+                "<div class='task-due'>" + taskDate + "</div>" +
+                "<button class='task-complete'>Complete</button>" +
+                "<button class='task-delete'>Delete</button>"
+            );
         }
       }
 
