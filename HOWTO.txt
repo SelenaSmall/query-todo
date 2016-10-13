@@ -123,29 +123,137 @@ Author: Selena Small, 2016
 		background-color: red; 
 	}
 
-11a	Now that we have clearly identified which elements will be moved and that it works, we can simply create a variable and add the following lines to the complete function to ensure the div moves the 'Complete' section:
+12.	Now that we have clearly identified which elements will be moved and that it works, we can simply create a variable and add the following lines to the complete function to ensure the div moves the 'Complete' section:
 	var complete = $(this).parent();
     $(this).parent().parent().next().append(complete);
 
-11b	And lastly, once the tasks is appropriately moved the 'Completed' section, we can modify the complete button with the following code:
+13.	And lastly, once the tasks is appropriately moved the 'Completed' section, we can modify the complete button with the following code:
 	$(this).html("uncomplete");
 
 
-11c	We now need to create a new function that will handle the click from the new "uncomplete" button.
+14.	We now need to create a new function that will handle the click from the new "uncomplete" button.
+	// Uncomplete task
+	$('button.task-uncomplete').click(function() {
+	var active = $(this).parent();
 
-//////////////////////////////////////////////
+	  $(this).parent().parent().prev().append(active);
+	  $(this).parent().removeClass('complete');
+	  $(this).removeClass('task-uncomplete');
+	  $(this).addClass('task-complete');
+	  $(this).html("complete");        
+	});
 
-
-
-
-
-//////////////////////////////////////////////
-
-12. Now we can work the 'Create' new tasks function. First to ensure task will be created in the corretc place, we need to work out the order of elements as jQuery will ready. Add the following code to your script.js inside the document.ready block. This will append the new task to your 'Active' section:
+15. Now we can work the 'Create' new tasks function. First to ensure task will be created in the corretc place, we need to work out the order of elements as jQuery will ready. Add the following code to your script.js inside the document.ready block. This will append the new task to your 'Active' section:
     // Create new task
     $('button.task-create').click(function() {
         $('div.task-list#active').append('<div class="todo-task"></div>');
         return false;
     });
 
-13. We will want to check and ensure there is content to be loaded before creating the task so as not to create a series of void divs.
+16.	We need to declare variables for the items we want to display in the new #todo and ensure they are created in the appropriate place when the 'Create task' button is clicked. Below, we will create varaible for the title and description before appending a new note to the 'Active' section containing the header and description that was input by our user.
+	var taskTitle = $('input[placeholder=Title]').val();
+	var taskDesc = $('textarea[placeholder=Description]').val();
+	    $('div.task-list#active').append('<div class="todo-task"></div>');
+	    
+	    $('div.todo-task').append(taskTitle).addClass('task-header');
+	    $('div.todo-task').append(taskDesc).addClass('task-description');
+
+17.	To ensure the values only append to the newest #todo section, we need to ensure that the targeted div is the last-child node. That can be done like so:
+	$('div.todo-task:last-child').append(taskTitle).addClass('task-header');
+    $('div.todo-task:last-child').append(taskDesc).addClass('task-description');
+
+18.	Using the jQuery UI's date-picker we can simplifiy the date selection by ensure an appropriate ID is allocated in our HTML for the date input field:
+		<input type="text" id="datepicker" placeholder="Due (dd/mm/yyyy)" />
+
+	And then by calling the date-pick function when the date input field is selected:
+	    // jQuery date-picker
+	    $('input#datepicker').focus(function() {
+	      $(this).datepicker({
+	        changeMonth: true,//this option for allowing user to select month
+	        changeYear: true //this option for allowing user to select from year range
+	      });
+	    });
+
+19.	Now that the date selector is working, we need to ensure that value is added to our new #todo task in the same way the taskTitle and taskDescription were added in step 16. This time around we will reference the 'id' rather than the 'placeholder' as the placeholder value contains non-alphanumeric characters which wont work.
+	var taskDate = $('input[id=datepicker]').val();
+	$('div.todo-task:last-child').append(taskDate).addClass('task-due');
+
+20.	Finally, to finish off the new task we will need to create new 'complete' and 'delete' buttons and append them to the new #todo section:
+    // Create 'complete' and 'delete' buttons for the new section
+    $('div.todo-task:last-child').append('<button class="task-complete">Complete</button>');
+    $('div.todo-task:last-child').append('<button class="task-delete">Delete</button>');
+
+21.	That's where we run into an issue. The create, complete and delete buttons work the first few times on our new elements, however, the more clicks that are made the more issues seem to arrise. We will need to add in some conditions to ensure the correct elements are being moved to the correct places. 
+
+Lets start off simple by checking to ensure there is content to be loaded before creating the task so as not to create a series of void divs. In order to do this, we will add a validator to the 'Title', 'Description' and 'Due' values when 'Create task' is clicked.
+	  // Validator to ensure values are not empty when creating a new task
+	  if( !$('input[placeholder=Title]').val() ) { 
+	    if( !$('textarea[placeholder=Description]').val() ) { 
+	      if( !$('input[id=datepicker]').val() ) { 
+	        alert('All values are empty');    
+	      } else {
+	      alert('Name & Description are epmty');    
+	      }  
+	    } else {
+	    alert('Name is empty');    
+	    }
+	  } else {
+	    if( !$('textarea[placeholder=Description]').val() ) { 
+	      if( !$('input[id=datepicker]').val() ) { 
+	        alert('Description and Date are empty');    
+	      } else {
+	      alert('Description is empty'); 
+	      } 
+	    } else {
+	      // Create new #todo section
+	      $('div.task-list#active').append('<div class="todo-task"></div>');
+	      // Append new values to the section
+	      $('div.todo-task:last-child').append(taskTitle).addClass('task-header');
+	      $('div.todo-task:last-child').append(taskDesc).addClass('task-description');
+	      $('div.todo-task:last-child').append(taskDate).addClass('task-due');       
+	      // Create 'complete' and 'delete' buttons for the new section
+	      $('div.todo-task:last-child').append('<button class="task-complete">Complete</button>');
+	      $('div.todo-task:last-child').append('<button class="task-delete">Delete</button>');
+	    }
+	  }
+
+22.	Now that the 'Create task' function appears to be working correctly and our tasks can be moved around from section with the click of a button, we need to ensure the those 'New task' values are cleared upon creation and ready for the next task. It's as simple using jQuery's .reset() function:
+	// Clear 'New task' values once they have been created
+  	$("#todo-form")[0].reset();
+
+23. Now to iron out a few glitches with the code we have so far. First, when you select the date field the datepicker doesn't immediately appear on the first click. It happens on the second click.
+//////////////////////////////////////////////////////////////
+
+
+
+
+//////////////////////////////////////////////////////////////
+
+24. You'll notice now, that when you create a new task it appears in the correct place and when you 'Complete' the task it also moves to the correct place. However, there's a glitch on 'Uncomplete'. The button text and div styles change correctly but it takes 2 clicks for the div to move back to it's correct position. This is because the function button.task-uncomplete is nested within button.task-complete which means it has to run through twice to be able to compile all the steps. By updating the function call with a second .prev(), we can ensure it is moved appropriately on the first click:
+	$(this).parent().parent().prev().prev().append(active);
+
+25. The next thing that you'll notice is that when trying to move the element back into the 'Complete' position, it again finds itself in the previous div. By inspecting the element, you can clearly see that the correct class has been allocated once again so here is where we are going to need to implement another conditional statement to ensure our div moves only between 'Active' and 'Complete'. Here is a check to ensure that button.task-uncomplete only moves the div from the 'complete' section - this condition will go inside the button.task-uncomplete click(function() {}):
+	if ( $(this).parents("#completed").length == 1 ) { 
+
+	}
+
+26. Now that that issue is solved, there is a new issue where the re-activated task can no longer be assigned to 'complete'. To solve this issue I am going to rewrite the entire function using the condition brought in in the previous step. The condition is that this element is either in the #active div or it is not. Not only have I now got a correctly working piece of jQuery, I've also optimised my code.
+    // Click complete/uncomplete task
+    $('button.task-complete').click(function() {
+      var myTask = $(this).parent();
+      if ( $(this).parents("#active").length == 1 ) { 
+        $(this).parent().parent().next().append(myTask);
+        $(this).parent().addClass('complete');
+        $(this).html("Uncomplete");
+      } else {
+        $(this).parent().parent().prev().append(myTask);
+        $(this).parent().removeClass('complete');
+        $(this).html("Complete");
+      }
+    });
+
+27.	To make this small application useable, I'm going to save the data to the browser so it will be there next time I load the page.
+
+
+28. Finally, to make the whole thing a little more aesthetically pleasing, I'll add some styling (which will likely result a slight restructure).
+
