@@ -221,13 +221,9 @@ Lets start off simple by checking to ensure there is content to be loaded before
 	// Clear 'New task' values once they have been created
   	$("#todo-form")[0].reset();
 
-23. Now to iron out a few glitches with the code we have so far. First, when you select the date field the datepicker doesn't immediately appear on the first click. It happens on the second click.
-//////////////////////////////////////////////////////////////
-
-
-
-
-//////////////////////////////////////////////////////////////
+23. Now to iron out a few glitches with the code we have so far. First, when you select the date field the datepicker doesn't immediately appear on the first click. It happens on the second click. This is an easy fix by simply switching the event from .click(function(){}) to .mouseover('focus', function(){}) - note here that the 'focus' isn't necessary to make this event work with the mouse but it will ensure that it works with the tab function on your keyboard.
+  	// Select date using jQuery date-picker
+  	$('input#datepicker').mouseover('focus', function() { 
 
 24. You'll notice now, that when you create a new task it appears in the correct place and when you 'Complete' the task it also moves to the correct place. However, there's a glitch on 'Uncomplete'. The button text and div styles change correctly but it takes 2 clicks for the div to move back to it's correct position. This is because the function button.task-uncomplete is nested within button.task-complete which means it has to run through twice to be able to compile all the steps. By updating the function call with a second .prev(), we can ensure it is moved appropriately on the first click:
 	$(this).parent().parent().prev().prev().append(active);
@@ -255,5 +251,13 @@ Lets start off simple by checking to ensure there is content to be loaded before
 27.	To make this small application useable, I'm going to save the data to the browser so it will be there next time I load the page.
 
 
-28. Finally, to make the whole thing a little more aesthetically pleasing, I'll add some styling (which will likely result a slight restructure).
+
+
+
+28. Optimise, annotate and clean up the code
+
+
+
+
+29. Finally, to make the whole thing a little more aesthetically pleasing, I'll add some styling (which will likely result a slight restructure).
 

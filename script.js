@@ -1,6 +1,6 @@
 $(document).ready(function() {
   // Select date using jQuery date-picker
-  $('input#datepicker').focus(function() {
+  $('input#datepicker').mouseover('focus', function() { 
     $(this).datepicker({
       changeMonth: true,  // Allowing user to select month
       changeYear: true    // Allowing user to select from year range
