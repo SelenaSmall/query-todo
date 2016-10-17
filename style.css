@@ -1,34 +1,100 @@
+body {
+  width: 25%;
+  margin: 10px auto;
+}
+
+h1, h3 {
+  text-align: center;
+}
+
 h1 {
-	color: red; 
+  background: #d3d3d3;
+  margin: 0px;
+  padding-top: 30px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+h3 {
+  text-decoration: underline;
+}
+
+button {
+  border-radius: 3px;
+  padding: 8px;
+  margin-top: 10px;
+  float: right;
+}
+
+button.task-delete {
+  margin-right: 5px;
+}
+
+input, textarea {
+  height: 30px;
+  width: 99%;
+  left: -2px;
+  border-radius: 3px;
+  position: relative;
+  display: block;
+  border-width: 1px;
+  border-style: solid;
+  border-color: initial;
+  border-image: initial;
+  padding: 0px 0px 0px 5px;
+  text-align: left;
+  line-height: 2.5em;
+}
+
+textarea {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  resize: none;
+}
+
+div.ui-datepicker {
+  background: #fff;
+  margin-top: 5px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 5px;
+
+}
+
+#todo-form {
+  background: #faebd7;
+  border-radius: 5px;
+  padding: 10px 10px 50px 10px;
+}
+
+.todo-task {
+  background-color: #faebd7;
+  min-height: 20px;
+  margin-top: 10px;
+  padding: 10px 10px 50px 10px;
+  border-radius: 5px;
 }
 
 .task-list {
 	padding: 10px;
-  	width: 25%;
-  	margin: 10px;
-  	background-color: lightgrey;
-  	min-height: 240px;
-}
-
-.task-list input, .task-list textarea {
-  width: 100%;
+	margin: auto;
+	background-color: lightgrey;
+	min-height: 240px;
 }
 
 .task-list input {
   height: 30px;
 }
 
-.todo-task {
-  background-color: #fff;
-  width: 100%;
-  min-height: 20px;
-  margin-top: 10px;
-}
-
-.task-list input[type="button"] {
-  width: 100px;
-}
-
 .complete {
 	background-color: red; 
+}
+
+#active, #completed {
+  min-height: 40px;
+}
+
+#completed {
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }

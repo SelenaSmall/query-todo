@@ -249,25 +249,57 @@ Lets start off simple by checking to ensure there is content to be loaded before
     });
 
 27. Now to ptimise, annotate and clean up the code. First, the append functionality on newly created tasks can be optimised as follows instead of having essentially 5 lines of similar code as we did before: 
-  	$('div.todo-task:last-child').append(
-        "<div class='task-header'>" + taskTitle + "</div>" +
-        "<div class='task-description'>" + taskDesc + "</div>" +
-        "<div class='task-due'>" + taskDate + "</div>" +
-        "<button class='task-complete'>Complete</button>" +
-        "<button class='task-delete'>Delete</button>"
+	$('div.todo-task:last-child').append(
+      taskTitle + '<br>' + taskDesc + '<br>' + taskDate + 
+      '<br><button class="task-complete">Complete</button>' + 
+      '<button class="task-delete">Delete</button>' 
     );
 
 28.	The other piece of code that can likely be optimised the conditional statement which validated that the form has been filled in correctly on task creation.
-///////////////////////////////////////////////////////////
+	  //Validator to ensure values are not empty when creating a new task
+      if( !taskTitle ) {         
+        if( !taskDesc ) { 
+          if( !taskDate ) { 
+            alert('All values are empty');    
+          } else {
+          alert('Name & Description are epmty');    
+          }  
+        } else {
+        alert('Name is empty');    
+        }
+      } else {
+        if( !taskDesc ) { 
+          if( !taskDate ) { 
+            alert('Description and Date are empty');    
+          } else {
+          alert('Description is empty'); 
+          } 
+        } else {
+          // Create new #todo section
+          $('div.task-list#active').append('<div class="todo-task"></div>');
+          // Append new values to the section
+          $('div.todo-task:last-child').append(
+              taskTitle + '<br>' + taskDesc + '<br>' + taskDate + 
+              '<br><button class="task-complete">Complete</button>' + 
+              '<button class="task-delete">Delete</button>' 
+            );
+        }
+      }
+
+29. The todoTask variables can be stored in a single array and then called later on in the program to return all values just once. The following two block show how this code has been condensed.
+
+
+30. Finally, to make the whole thing a little more aesthetically pleasing, I'll add some styling (which will likely result a slight restructure).
+	
+
+
+35. And finally, update the Header value in the html
+	<h1>jQuery #TODO</h1>
+
+
+31.	To make this small application useable, I'm going to save the data to the browser so it will be there next time I load the page.
 
 
 
 
 
-
-///////////////////////////////////////////////////////////
-
-29. Finally, to make the whole thing a little more aesthetically pleasing, I'll add some styling (which will likely result a slight restructure).
-
-
-30.	To make this small application useable, I'm going to save the data to the browser so it will be there next time I load the page.
