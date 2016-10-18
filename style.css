@@ -1,6 +1,7 @@
 body {
   width: 25%;
   margin: 10px auto;
+  background: #cceeff;
 }
 
 h1, h3 {
@@ -8,15 +9,16 @@ h1, h3 {
 }
 
 h1 {
-  background: #d3d3d3;
-  margin: 0px;
-  padding-top: 30px;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  padding: 20px;
+  border-radius: 100px;
+  width: 60%;
+  margin: 40px auto 10px;
+  background: rgba(255,255,255,0.8);
 }
 
 h3 {
-  text-decoration: underline;
+  margin-bottom: 5px;
+  font-family: fantasy;border-bottom: 1px solid #000;
 }
 
 button {
@@ -24,6 +26,8 @@ button {
   padding: 8px;
   margin-top: 10px;
   float: right;
+  background: #ff8000;
+  border-style: groove;
 }
 
 button.task-delete {
@@ -37,19 +41,19 @@ input, textarea {
   border-radius: 3px;
   position: relative;
   display: block;
-  border-width: 1px;
-  border-style: solid;
-  border-color: initial;
-  border-image: initial;
+  border-bottom: lightgrey;
   padding: 0px 0px 0px 5px;
   text-align: left;
   line-height: 2.5em;
+  background: rgba(255,255,255,0.7);
 }
 
 textarea {
   margin-top: 5px;
   margin-bottom: 5px;
   resize: none;
+  border-width: 2px;
+  border-style: inset;
 }
 
 div.ui-datepicker {
@@ -58,43 +62,43 @@ div.ui-datepicker {
   border: 1px solid #000;
   border-radius: 5px;
   padding: 5px;
-
+}
+.ui-datepicker-prev {
+  float: left;
+  text-decoration: underline;
+}
+.ui-datepicker-next {
+  float: right;
+  text-decoration: underline;
+}
+.ui-datepicker-title {
+  width: 100%;
+  display: inline-block;
+}
+.ui-datepicker-month, .ui-datepicker-year {
+  width: 50%;
+  margin: 5px 0px;
 }
 
-#todo-form {
-  background: #faebd7;
+.todo-task, #todo-form {
+  background-color: #ffcc99;
+  border: 2px solid #ff8000;
   border-radius: 5px;
   padding: 10px 10px 50px 10px;
-}
-
-.todo-task {
-  background-color: #faebd7;
-  min-height: 20px;
-  margin-top: 10px;
-  padding: 10px 10px 50px 10px;
-  border-radius: 5px;
+  width: 90%;
+  margin: 10px auto;
 }
 
 .task-list {
 	padding: 10px;
-	margin: auto;
-	background-color: lightgrey;
-	min-height: 240px;
-}
-
-.task-list input {
-  height: 30px;
 }
 
 .complete {
-	background-color: red; 
+  background-color: #ff8000;
+  border: 5px solid #ffcc99;
 }
 
 #active, #completed {
   min-height: 40px;
 }
 
-#completed {
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-}

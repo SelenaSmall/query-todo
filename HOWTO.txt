@@ -289,15 +289,134 @@ Lets start off simple by checking to ensure there is content to be loaded before
 29. The todoTask variables can be stored in a single array and then called later on in the program to return all values just once. The following two block show how this code has been condensed.
 
 
-30. Finally, to make the whole thing a little more aesthetically pleasing, I'll add some styling (which will likely result a slight restructure).
-	
-
-
-35. And finally, update the Header value in the html
+30. Finally, to make the whole thing look a little nicer, I'll add some styling (which will likely result a slight restructure). First up, update the Header value in the html
 	<h1>jQuery #TODO</h1>
+	
+31. And then some new styles:
+	a. I want this todo column to be centered on the page regardless of the window size, so in order to do that I'm going to set a specified width on 25% on the body and set the margin to 'auto' - this is the style that centers it. And lastly, lighter websites and applications generally make it easier for people to view them
+		body {
+		  width: 25%;
+		  margin: 10px auto;
+		  background: #cceeff;
+		}
+
+	b. To styise the headers a little differently, I've implemented the following css. This includes a transparent white background on the h1 element by using rgba(255,255,255,0.8).
+		h1, h3 {
+		  text-align: center;
+		}
+
+		h1 {
+		  padding: 20px;
+		  border-radius: 100px;
+		  width: 60%;
+		  margin: 40px auto 10px;
+		  background: rgba(255,255,255,0.8);
+		}
+
+		h3 {
+		  margin-bottom: 5px;
+		  font-family: fantasy;border-bottom: 1px solid #000;
+		}
+
+	c. To set the buttons to the right hand side of the div they are contained within, I have floated them to the right. Also to make them pop off the page a little more, I've given them a border style of 'groove' with a slightly darker background colour.
+		button {
+		  border-radius: 3px;
+		  padding: 8px;
+		  margin-top: 10px;
+		  float: right;
+		  background: #ff8000;
+		  border-style: groove;
+		}
+
+		button.task-delete {
+		  margin-right: 5px;
+		}
+
+	d. For the input fields, white is a little harsh on the eyes given the coloured background so I have again made use of the transparent white along with a light grey border to make the input fields appear inset. In this case, there are two different field type to take into consideration as I am targeting both 'input' and 'textarea'. 'Textarea' requires some extra styling changes to override the default settings and match the styles up to the input field.
+		input, textarea {
+		  height: 30px;
+		  width: 99%;
+		  left: -2px;
+		  border-radius: 3px;
+		  position: relative;
+		  display: block;
+		  border-bottom: lightgrey;
+		  padding: 0px 0px 0px 5px;
+		  text-align: left;
+		  line-height: 2.5em;
+		  background: rgba(255,255,255,0.7);
+		}
+
+		textarea {
+		  margin-top: 5px;
+		  margin-bottom: 5px;
+		  resize: none;
+		  border-width: 2px;
+		  border-style: inset;
+		}
+
+	e. Next, I've targeted the jQuery datepicker whose default has no background which makes it hard to read if it's overlaying other information. This one's a little tricky to target since it's coming from a whole nother library but I basically just need it to be more readable onclick.
+		div.ui-datepicker {
+		  background: #fff;
+		  margin-top: 5px;
+		  border: 1px solid #000;
+		  border-radius: 5px;
+		  padding: 5px;
+		}
+		.ui-datepicker-prev {
+		  float: left;
+		  text-decoration: underline;
+		}
+		.ui-datepicker-next {
+		  float: right;
+		  text-decoration: underline;
+		}
+		.ui-datepicker-title {
+		  width: 100%;
+		  display: inline-block;
+		}
+		.ui-datepicker-month, .ui-datepicker-year {
+		  width: 50%;
+		  margin: 5px 0px;
+		}
+
+	f. The .todo-task and #todo-form will have the same styles since I want them to look consistent. It doesn't really matter which way you order them but it is generally convention that classes are declared before id's.
+		.todo-task, #todo-form {
+		  background-color: #ffcc99;
+		  border: 2px solid #ff8000;
+		  border-radius: 5px;
+		  padding: 10px 10px 50px 10px;
+		  width: 90%;
+		  margin: 10px auto;
+		}
+
+	g. I've set padding around the task list to space the whole thing out a bit more and take advantage of a less squished layout.
+		.task-list {
+			padding: 10px;
+		}
+
+	h. The completed tasks will have viturally the same styling as the .todo-task and #todo-form, however I want to style them to have a more clear indication that they now belong to the 'completed' list, so I have simply switch the background and border colours around. It keeps within the colourscheme but also shows an obvious change.
+		.complete {
+		  background-color: #ff8000;
+		  border: 5px solid #ffcc99;
+		}
+
+	i. Lastly, I have set a minimum height on the #active and #completed lists so that if there are no #todo's listed, they dont take up and unusually large amount of space.
+		#active, #completed {
+		  min-height: 40px;
+		}
+
+32. After testing with the styles, I have found a new bug in the code where there a more than 1 new tasks created. This has caused the jQuery nodes to be confused as to which they belong and need to move to. Here is how the bug displays:
 
 
-31.	To make this small application useable, I'm going to save the data to the browser so it will be there next time I load the page.
+
+33. 
+
+
+33.	To make this small application useable, I'm going to save the data to the browser so it will be there next time I load the page.
+
+
+
 
 
 
