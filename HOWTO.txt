@@ -407,13 +407,58 @@ Lets start off simple by checking to ensure there is content to be loaded before
 		}
 
 32. After testing with the styles, I have found a new bug in the code where there a more than 1 new tasks created. This has caused the jQuery nodes to be confused as to which they belong and need to move to. Here is how the bug displays:
+	///////////////////// images here /////////////////////
+
+33. After some thought about moving forward with this list, I have concluded that there is in fact no real need for 'active' and 'complete' sections if the 'complete' click event is going to change it's parent div so drastically. By redesgining the way this works, the previous bug may no longer be an issue as we can have one list called "Tasks" and completed tasks can simply change colour and move to the bottom of that list. Let's start by updating the html:
+		<div class="task-list" id="all-tasks">
+		  <h3>Task Lists</h3>
+		  <!-- Sample task added manually to check look -->
+		  <div class="todo-task">
+		    <div class="task-header">Sample Header</div>
+		    <div class="task-due">25/06/1992</div>
+		    <div class="task-description">Lorem Ipsum Dolor Sit Amet</div>
+
+		    <button class="task-complete">Complete</button>
+		    <button class="task-delete">Delete</button>
+		  </div>
+		</div>
+
+<!-- 		<div class="task-list" id="completed">
+		  <h3>Complete</h3>
+		</div> -->
+
+34. Now the task-complete function in the script.js file will need to be updated as we are working with fewer elements and we no longer need to switch between divs.
+    // Click complete/uncomplete task
+    $('button.task-complete').click(function() {
+      var myTask = $(this).parent();
+      if ( $(this).parents(".complete").length == 1 ) { 
+        $(this).parent().parent().append(myTask);
+        $(this).parent().removeClass('complete');
+        $(this).html("Complete"); 
+      } else {
+        $(this).parent().parent().append(myTask);
+        $(this).parent().addClass('complete');
+        $(this).html("Uncomplete");
+      }
+    });
+
+35. Make sure the #todo div space is targeting the correct task-list id, since we've just changed it in the html to avoid confusion.
+	// Create new #todo section
+  	$('div.task-list#all-tasks').append('<div class="todo-task"></div>');
+
+36. After simplifying the layout of the list and getting the styles to switch correctly between complete and active, there still seems to be a bug with the ordering of nodes. This is a case where some conditional statements will need to be implemented.
 
 
 
-33. 
 
+
+
+ 
 
 33.	To make this small application useable, I'm going to save the data to the browser so it will be there next time I load the page.
+
+
+
 
 
 
