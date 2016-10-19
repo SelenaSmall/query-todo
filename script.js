@@ -35,9 +35,11 @@ $(document).ready(function() {
           // Create new #todo section
           $('div.task-list#active').append('<div class="todo-task"></div>');
           // Append new values to the section
-          $('div.todo-task:last-child').append(
-              taskTitle + '<br>' + taskDesc + '<br>' + taskDate + 
-              '<br><button class="task-complete">Complete</button>' + 
+            $('div.todo-task:last-child').append(
+              '<div class="task-header">' + taskTitle + '</div>' + 
+              '<div class="task-due">' + taskDate + '</div>' + 
+              '<div class="task-description">' + taskDesc + '</div>' + 
+              '<button class="task-complete">Complete</button>' + 
               '<button class="task-delete">Delete</button>' 
             );
         }
@@ -50,13 +52,13 @@ $(document).ready(function() {
     $('button.task-complete').click(function() {     
       $(this).each(function() {
         var myTask = $(this).parent();
-        if ( $(this).parents("#active").length == 1 ) { 
-          $(this).parent().parent().next().append(myTask);
-          $(this).parent().addClass('complete');
+        if ( $(this).parents("#active").length >= 1 ) { 
+          $(myTask).parent().next($('div:last-child')).append(myTask);
+          $(myTask).addClass('complete');
           $(this).html("uncomplete"); 
         } else { 
-          $(this).parent().parent().prev().append(myTask);
-          $(this).parent().removeClass('complete');
+          $(myTask).parent().prev().append(myTask);
+          $(myTask).removeClass('complete');
           $(this).html("complete"); 
         } 
       });

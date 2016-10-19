@@ -102,3 +102,13 @@ div.ui-datepicker {
   min-height: 40px;
 }
 
+.task-header {
+  font-weight: 900;
+  font-size: 1.2em;
+}
+.task-due {
+  font-style: italic;
+  width: auto;
+  float: right;
+  margin-top: -15px;
+}
