@@ -33,7 +33,7 @@ $(document).ready(function() {
           } 
         } else {
           // Create new #todo section
-          $('div.task-list#all-tasks').append('<div class="todo-task"></div>');
+          $('div.task-list#active').append('<div class="todo-task"></div>');
           // Append new values to the section
           $('div.todo-task:last-child').append(
               taskTitle + '<br>' + taskDesc + '<br>' + taskDate + 
@@ -47,17 +47,19 @@ $(document).ready(function() {
       $("#todo-form")[0].reset();
 
     // Click complete/uncomplete task
-    $('button.task-complete').click(function() {
-      var myTask = $(this).parent();
-      if ( $(this).parents(".complete").length == 1 ) { 
-        $(this).parent().parent().append(myTask);
-        $(this).parent().removeClass('complete');
-        $(this).html("Complete"); 
-      } else {
-        $(this).parent().parent().append(myTask);
-        $(this).parent().addClass('complete');
-        $(this).html("Uncomplete");
-      }
+    $('button.task-complete').click(function() {     
+      $(this).each(function() {
+        var myTask = $(this).parent();
+        if ( $(this).parents("#active").length == 1 ) { 
+          $(this).parent().parent().next().append(myTask);
+          $(this).parent().addClass('complete');
+          $(this).html("uncomplete"); 
+        } else { 
+          $(this).parent().parent().prev().append(myTask);
+          $(this).parent().removeClass('complete');
+          $(this).html("complete"); 
+        } 
+      });
     });
 
     // Click delete task

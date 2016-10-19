@@ -293,9 +293,9 @@ Lets start off simple by checking to ensure there is content to be loaded before
 	<h1>jQuery #TODO</h1>
 	
 31. And then some new styles:
-	a. I want this todo column to be centered on the page regardless of the window size, so in order to do that I'm going to set a specified width on 25% on the body and set the margin to 'auto' - this is the style that centers it. And lastly, lighter websites and applications generally make it easier for people to view them
+	a. I want this todo column to be centered on the page regardless of the window size, so in order to do that I'm going to set a specified width of 400px and set the margin to 'auto' - this is the style that centers it. And lastly, lighter websites and applications generally make it easier for people to view them
 		body {
-		  width: 25%;
+		  width: 400px;
 		  margin: 10px auto;
 		  background: #cceeff;
 		}
@@ -409,53 +409,24 @@ Lets start off simple by checking to ensure there is content to be loaded before
 32. After testing with the styles, I have found a new bug in the code where there a more than 1 new tasks created. This has caused the jQuery nodes to be confused as to which they belong and need to move to. Here is how the bug displays:
 	///////////////////// images here /////////////////////
 
-33. After some thought about moving forward with this list, I have concluded that there is in fact no real need for 'active' and 'complete' sections if the 'complete' click event is going to change it's parent div so drastically. By redesgining the way this works, the previous bug may no longer be an issue as we can have one list called "Tasks" and completed tasks can simply change colour and move to the bottom of that list. Let's start by updating the html:
-		<div class="task-list" id="all-tasks">
-		  <h3>Task Lists</h3>
-		  <!-- Sample task added manually to check look -->
-		  <div class="todo-task">
-		    <div class="task-header">Sample Header</div>
-		    <div class="task-due">25/06/1992</div>
-		    <div class="task-description">Lorem Ipsum Dolor Sit Amet</div>
-
-		    <button class="task-complete">Complete</button>
-		    <button class="task-delete">Delete</button>
-		  </div>
-		</div>
-
-<!-- 		<div class="task-list" id="completed">
-		  <h3>Complete</h3>
-		</div> -->
-
-34. Now the task-complete function in the script.js file will need to be updated as we are working with fewer elements and we no longer need to switch between divs.
+33. The issue can be simply fixed by adding a for loop in the syntax for the task-complete button. This will run through the iteration of each #todo task once instead of confusing the code about where each node needs to go. The .each(function(){}) is similar to a For Loop will ensure that the task runs runs once and either moves a task to #active OR #complete before exiting. 
     // Click complete/uncomplete task
-    $('button.task-complete').click(function() {
-      var myTask = $(this).parent();
-      if ( $(this).parents(".complete").length == 1 ) { 
-        $(this).parent().parent().append(myTask);
-        $(this).parent().removeClass('complete');
-        $(this).html("Complete"); 
-      } else {
-        $(this).parent().parent().append(myTask);
-        $(this).parent().addClass('complete');
-        $(this).html("Uncomplete");
-      }
+    $('button.task-complete').click(function() {     
+      $(this).each(function() {
+        var myTask = $(this).parent();
+        if ( $(this).parents("#active").length == 1 ) { 
+          $(this).parent().parent().next().append(myTask);
+          $(this).parent().addClass('complete');
+          $(this).html("uncomplete"); 
+        } else { 
+          $(this).parent().parent().prev().append(myTask);
+          $(this).parent().removeClass('complete');
+          $(this).html("complete"); 
+        } 
+      });
     });
 
-35. Make sure the #todo div space is targeting the correct task-list id, since we've just changed it in the html to avoid confusion.
-	// Create new #todo section
-  	$('div.task-list#all-tasks').append('<div class="todo-task"></div>');
-
-36. After simplifying the layout of the list and getting the styles to switch correctly between complete and active, there still seems to be a bug with the ordering of nodes. This is a case where some conditional statements will need to be implemented.
-
-
-
-
-
-
- 
-
-33.	To make this small application useable, I'm going to save the data to the browser so it will be there next time I load the page.
+34.	Next, to make this small application useable I'm going to use local storage to save the data to the browser so it will be there next time I load the page.
 
 
 
